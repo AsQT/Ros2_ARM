@@ -296,8 +296,8 @@
     <child link="gripper_l" />
     <axis xyz="1 0 0" />
     <limit
-      lower="0" upper="0.02"
-      effort="1000" velocity="5.0" />
+      lower="0" upper="0.1"
+      effort="50" velocity="0.05" />
   </joint>
 
     <!-- gripper_r -->
@@ -335,8 +335,31 @@
     <child link="gripper_r" />
     <axis xyz="1 0 0" />
     <limit
-      lower="0" upper="0.02"
-      effort="1000" velocity="5.0" />
+      lower="0" upper="0.1"
+      effort="50" velocity="0.05" />
+  </joint>
+
+
+  <gazebo reference="gripper_l">
+    <mu1>1000.0</mu1> <mu2>1000.0</mu2> <kp>1000000.0</kp> <kd>1.0</kd>       <minDepth>0.001</minDepth> <maxVel>0.1</maxVel>       <selfCollide>false</selfCollide>
+    <material>Gazebo/Grey</material>
+  </gazebo>
+
+  <gazebo reference="gripper_r">
+    <mu1>1000.0</mu1>
+    <mu2>1000.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>1.0</kd>
+    <minDepth>0.001</minDepth>
+    <maxVel>0.1</maxVel>
+    <selfCollide>false</selfCollide>
+    <material>Gazebo/Grey</material>
+  </gazebo>
+
+  <link name="tcp_link"/> <joint name="tcp_joint" type="fixed">
+    <parent link="link_6"/>
+    <child link="tcp_link"/>
+    <origin xyz="0 0 0.08" rpy="0 0 0"/> 
   </joint>
 
 </robot>

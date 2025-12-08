@@ -1,5 +1,3 @@
-# MoveIt uses this configuration for controller management
-
 moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControllerManager
 
 moveit_simple_controller_manager:
@@ -10,12 +8,17 @@ moveit_simple_controller_manager:
   gripper_controller:
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
+    default: true
+    allowed_start_tolerance: 0.1
     joints:
       - joint_gl
       - joint_gr
+
   arm_controller:
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
+    default: true
+    allowed_start_tolerance: 0.2  # <--- SỬA TỪ 0.01 THÀNH 0.2 (Đừng để thấp hơn)
     joints:
       - joint_1
       - joint_2

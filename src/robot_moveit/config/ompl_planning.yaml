@@ -1,0 +1,33 @@
+planning_plugins:
+  - ompl_interface/OMPLPlanner
+planning_adapters:
+  - default_planning_request_adapters/ResolveConstraintFrames
+  - default_planning_request_adapters/ValidateWorkspaceBounds
+  - default_planning_request_adapters/CheckStartStateBounds
+  - default_planning_request_adapters/CheckStartStateCollision
+  - default_planning_request_adapters/AddTimeOptimalParameterization
+
+planner_configs:
+  RRTConnect:
+    type: geometric::RRTConnect
+    range: 0.01
+  RRTstar:
+    type: geometric::RRTstar
+    range: 0.0
+  PRM:
+    type: geometric::PRM
+    max_nearest_neighbors: 10
+
+arm:
+  default_planner_config: RRTConnect
+  planner_configs:
+    - RRTConnect
+    - RRTstar
+    - PRM
+
+gripper:
+  default_planner_config: RRTConnect
+  planner_configs:
+    - RRTConnect
+    - RRTstar
+    - PRM

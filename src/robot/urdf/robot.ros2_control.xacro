@@ -9,6 +9,7 @@
             <hardware>
                 <xacro:if value="${use_sim}">
                     <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+                    <parameters>$(find robot_moveit)/config/ros2_controllers.yaml</parameters>
                 </xacro:if>
 
                 <xacro:unless value="${use_sim}">

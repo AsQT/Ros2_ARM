@@ -8,7 +8,7 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
     pkg_share = get_package_share_directory('robot')
-    default_model_path = os.path.join(pkg_share, 'urdf/robot.urdf')
+    default_model_path = os.path.join(pkg_share, 'urdf/robot.urdf.xacro')
     default_rviz_config_path = os.path.join(pkg_share, 'rviz/config.rviz')
 
     robot_state_publisher_node = Node(
@@ -16,7 +16,8 @@ def generate_launch_description():
         executable='robot_state_publisher',
         parameters=[{
             'robot_description': ParameterValue(
-                Command(['cat ', LaunchConfiguration('model')]),
+                # --- SỬA Ở ĐÂY: Đổi 'cat ' thành 'xacro ' ---
+                Command(['xacro ', LaunchConfiguration('model')]),
                 value_type=str
             )
         }]
