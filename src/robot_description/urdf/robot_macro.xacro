@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:macro name="create_link" params="name mesh xyz rpy mass">
+  <link name="${name}">
+    <visual>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+      <geometry>
+        <mesh filename="package://robot_description/meshes/${mesh}.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="Silver"/>
+    </visual>
+
+    <collision>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+      <geometry>
+        <mesh filename="package://robot_description/meshes/${mesh}.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="${mass}"/>
+      <inertia ixx="0.001" iyy="0.001" izz="0.001"
+               ixy="0" ixz="0" iyz="0"/>
+    </inertial>
+  </link>
+</xacro:macro>
+
+
+<xacro:macro name="create_joint" params="name parent child xyz rpy axis limit">
+  <joint name="${name}" type="revolute">
+    <parent link="${parent}"/>
+    <child link="${child}"/>
+    <origin xyz="${xyz}" rpy="${rpy}"/>
+    <axis xyz="${axis}"/>
+
+    <limit
+        lower="${-limit}"
+        upper="${limit}"
+        effort="60"
+        velocity="3.0"/>
+  </joint>
+</xacro:macro>
+
+
+<!-- ============ ARM GENERATOR ============ -->
+
+<xacro:macro name="arm_chain" params="dof parent">
+
+    <xacro:property name="prev_link" value="${parent}"/>
+
+    <xacro:for each="i" in="${range(1,dof+1)}">
+
+        <link name="joint_${i}_link"/>
+        <xacro:create_link
+            name="link_${i}"
+            mesh="link_${i}"
+            xyz="0 0 0.1"
+            rpy="0 0 0"
+            mass="1.0"/>
+
+        <xacro:create_joint
+            name="joint_${i}"
+            parent="${prev_link}"
+            child="link_${i}"
+            xyz="0 0 0.1"
+            rpy="0 0 0"
+            axis="0 0 1"
+            limit="${pi/2}"/>
+
+        <xacro:property name="prev_link" value="link_${i}"/>
+
+    </xacro:for>
+
+</xacro:macro>
+
+</robot>
