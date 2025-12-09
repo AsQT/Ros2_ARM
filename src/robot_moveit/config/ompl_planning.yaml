@@ -1,7 +1,6 @@
 planning_plugins:
   - ompl_interface/OMPLPlanner
 
-# QUAN TRỌNG: Phải dùng tên 'request_adapters', không phải 'planning_adapters'
 request_adapters:
   - default_planning_request_adapters/ResolveConstraintFrames
   - default_planning_request_adapters/ValidateWorkspaceBounds
