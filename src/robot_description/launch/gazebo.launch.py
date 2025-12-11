@@ -11,7 +11,7 @@ from launch.event_handlers import OnProcessExit
 def generate_launch_description():
     # 1. Khai báo đường dẫn
     pkg_description = get_package_share_directory('robot_description')
-    pkg_moveit = get_package_share_directory('robot_description_moveit')
+    pkg_moveit = get_package_share_directory('robot_moveit')
     ros_gz_sim_pkg = get_package_share_directory('ros_gz_sim')
     
     # --- KHẮC PHỤC CHÍNH: Lấy đường dẫn tuyệt đối (String) ---

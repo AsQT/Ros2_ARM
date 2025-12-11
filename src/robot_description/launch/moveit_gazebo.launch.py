@@ -10,7 +10,7 @@ from moveit_configs_utils import MoveItConfigsBuilder
 
 def generate_launch_description():
     # 1. Khai báo tên các gói
-    pkg_moveit = 'robot_description_moveit'
+    pkg_moveit = 'robot_moveit'
     pkg_description = 'robot_description'
     
     # --- KHẮC PHỤC LỖI TẠI ĐÂY ---
