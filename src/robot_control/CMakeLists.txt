@@ -7,17 +7,20 @@ find_package(rclpy REQUIRED)
 find_package(trajectory_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 
-# 1. Cài đặt file Python (Sửa lỗi Exec format error)
+# --- THÊM ĐOẠN NÀY ĐỂ CÀI FILE PYTHON ---
 install(PROGRAMS
-  launch/slider_control.py  # <-- Đảm bảo đúng đường dẫn tới file code của ông
+  robot_control/slider_control.py
   DESTINATION lib/${PROJECT_NAME}
   RENAME slider_control
 )
+# ----------------------------------------
 
-# 2. Cài đặt folder Config (Sửa lỗi Parameter file not found)
+# 2. Cài đặt folder Config & Launch
 install(DIRECTORY
   config
   launch
+  test
+  robot_control
   DESTINATION share/${PROJECT_NAME}
 )
 
