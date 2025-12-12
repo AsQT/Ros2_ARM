@@ -24,6 +24,8 @@ setup(
     },
     entry_points={
         'console_scripts': [
+            # Dòng quan trọng nhất để chạy lệnh 'ros2 run'
+            'commander_gui = robot_gui.commander_gui:main',
         ],
     },
 )
