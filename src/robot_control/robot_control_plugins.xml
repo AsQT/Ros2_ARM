@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<library path="robot_hardware">
+  <class
+    name="robot_control/RobotHardware"
+    type="robot_control::RobotHardware"
+    base_class_type="hardware_interface::SystemInterface">
+    <description>Robot ros2_control hardware interface (STM32 RS-485)</description>
+  </class>
+</library>

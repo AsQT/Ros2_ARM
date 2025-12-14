@@ -9,15 +9,12 @@ from launch_ros.substitutions import FindPackageShare
 from launch.event_handlers import OnProcessExit
 
 def generate_launch_description():
-    # 1. Khai báo đường dẫn
     pkg_description = get_package_share_directory('robot_description')
     pkg_control = get_package_share_directory('robot_control')
     ros_gz_sim_pkg = get_package_share_directory('ros_gz_sim')
     
     world_file = os.path.join(pkg_description, "worlds", "arm_on_the_table.sdf")
     
-    # --- KHẮC PHỤC QUAN TRỌNG: TẠO URDF TRỰC TIẾP TẠI ĐÂY ---
-    # Chúng ta tự chạy xacro ở đây để lấy chuỗi XML, đảm bảo use_sim:=true được bật
     xacro_file = os.path.join(pkg_description, "urdf", "robot.urdf.xacro")
     
     robot_description_content = Command([
@@ -48,14 +45,16 @@ def generate_launch_description():
         arguments=[
             '-string', robot_description_content, 
             '-name', 'robot',
-            '-x', '0.0', '-y', '0.0', '-z', '1.02',
+            '-x', '0.0', 
+            '-y', '0.0', 
+            '-z', '1.02',
             '-allow_renaming', 'true'
         ], 
         output='screen',
     )
 
     # 4. Bridge
-    bridge = Node(
+    gz_ros2_bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
         arguments=[
@@ -84,6 +83,6 @@ def generate_launch_description():
         gz_resource_path,
         gazebo,
         spawn_entity,
-        bridge,
-        start_controllers_callback
+        gz_ros2_bridge,
+        start_controllers_callback,
     ])

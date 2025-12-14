@@ -13,16 +13,14 @@ def generate_launch_description():
     pkg_moveit = 'robot_moveit'
     pkg_description = 'robot_description'
     
-    # --- KHẮC PHỤC LỖI TẠI ĐÂY ---
     # Lấy đường dẫn tuyệt đối đến file URDF trong gói 'robot_description'
     pkg_description_path = get_package_share_directory(pkg_description)
     urdf_file_path = os.path.join(pkg_description_path, "urdf", "robot.urdf.xacro")
 
     # 2. Tải cấu hình MoveIt
-    # Bỏ tham số 'package', truyền thẳng đường dẫn tuyệt đối vào 'file_path'
     moveit_config = MoveItConfigsBuilder("robot", package_name=pkg_moveit) \
         .robot_description(
-            file_path=urdf_file_path,   # <--- Truyền đường dẫn full
+            file_path=urdf_file_path, 
             mappings={"use_sim": "true"}      
         ) \
         .to_moveit_configs()

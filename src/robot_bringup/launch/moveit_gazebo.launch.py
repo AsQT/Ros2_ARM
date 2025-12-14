@@ -5,16 +5,14 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import PathJoinSubstitution
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
-from ament_index_python.packages import get_package_share_directory # <--- Cần thêm cái này
+from ament_index_python.packages import get_package_share_directory
 from moveit_configs_utils import MoveItConfigsBuilder
 
 def generate_launch_description():
     # 1. Khai báo tên các gói
     pkg_moveit = 'robot_moveit'
     pkg_description = 'robot_description'
-    
-    # --- KHẮC PHỤC LỖI TẠI ĐÂY ---
-    # Lấy đường dẫn tuyệt đối đến file URDF trong gói 'robot_description'
+
     pkg_description_path = get_package_share_directory(pkg_description)
     urdf_file_path = os.path.join(pkg_description_path, "urdf", "robot.urdf.xacro")
 

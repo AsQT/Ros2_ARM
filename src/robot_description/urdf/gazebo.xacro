@@ -4,31 +4,9 @@
     <xacro:if value="$(arg use_sim)">
         <gazebo>
             <plugin filename="libgz_ros2_control-system.so" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
-            <parameters>$(find robot_moveit)/config/ros2_controllers.yaml</parameters>
+                <parameters>$(find robot_moveit)/config/ros2_controllers.yaml</parameters>
             </plugin>
         </gazebo>
     </xacro:if>
-
-    <link name="camera_link">
-        <visual>
-            <geometry>
-                <mesh filename="package://robot_description/meshes/astra_cam.stl" />
-            </geometry>
-            <material name="black">
-                <color rgba="0 0 0 1"/> 
-            </material>
-        </visual>
-        <collision>
-            <geometry>
-                <mesh filename="package://robot_description/meshes/astra_cam.stl" />
-            </geometry>
-        </collision>
-    </link>
-    
-    <joint name="camera_joint" type="fixed">
-        <parent link="world"/>
-        <child link="camera_link"/>
-        <origin xyz="0.8 0 2" rpy="3.1416 0 1.5707"/>
-    </joint>
 
 </robot>

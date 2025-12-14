@@ -4,10 +4,15 @@
     <xacro:arg name="use_sim" default="true" />
     <xacro:arg name="initial_positions_file" default="$(find robot_moveit)/config/initial_positions.yaml" />
 
-    <xacro:include filename="$(find robot_description)/urdf/robot.xacro" />
-    <xacro:include filename="$(find robot_description)/urdf/robot.ros2_control.xacro" />
-    <xacro:include filename="$(find robot_description)/urdf/gazebo.xacro" />
+    <xacro:include filename =   "$(find robot_description)/urdf/materials.xacro" />
+    <xacro:include filename =   "$(find robot_description)/urdf/robot.xacro" />
+    <xacro:include filename =   "$(find robot_description)/urdf/sensors.xacro"/>
+    <xacro:include filename =   "$(find robot_description)/urdf/robot.ros2_control.xacro" />
+    <xacro:include filename =   "$(find robot_description)/urdf/gazebo.xacro" />
     
-    <xacro:robot_ros2_control name="robot" initial_positions_file="$(arg initial_positions_file)" use_sim="$(arg use_sim)" />
+    <xacro:base_camera parent_link  = "base_link"/>
+    <xacro:robot_ros2_control name  ="robot" 
+            initial_positions_file  ="$(arg initial_positions_file)" 
+            use_sim                 ="$(arg use_sim)" />
 
 </robot>
