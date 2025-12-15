@@ -14,20 +14,6 @@ def generate_launch_description():
     pkg_share = get_package_share_directory("robot_moveit")
     rviz_config_file = os.path.join(pkg_share, "config", "moveit.rviz")
 
-<<<<<<< HEAD
-    # 2. Đọc và TRÍCH XUẤT tham số cho Controller Manager['controller_manager']['ros__parameters']
-    with open(ros2_controllers_path, 'r') as file:
-        full_config = yaml.safe_load(file)
-        # Sửa lỗi 'Type not defined': Đưa params ra đúng cấp độ node mong muốn
-        controller_manager_params = full_config['controller_manager']['ros__parameters']
-
-    # 3. Node Robot State Publisher
-    node_robot_state_publisher = Node(
-        package="robot_state_publisher",
-        executable="robot_state_publisher",
-        output="screen",
-        parameters=[moveit_config.robot_description],
-=======
     # 2. INCLUDE CONTROL LAUNCH (Thay thế cho toàn bộ phần ros2_control cũ)
     # Phần này sẽ bật: Hardware Interface, Controller Manager, Spawners, Robot State Publisher
     launch_control = IncludeLaunchDescription(
@@ -36,7 +22,6 @@ def generate_launch_description():
         ),
         # is_sim="False" -> Chạy thật hoặc Mock Hardware (không dùng Gazebo)
         launch_arguments={"is_sim": "False"}.items()
->>>>>>> 050b7c084b52d14a3fc2d916d8c7158f042e78fc
     )
 
     # 3. Node Move Group
