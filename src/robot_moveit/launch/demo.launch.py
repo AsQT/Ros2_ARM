@@ -6,7 +6,9 @@ from ament_index_python.packages import get_package_share_directory
 from moveit_configs_utils import MoveItConfigsBuilder
 
 def generate_launch_description():
-    moveit_config         = MoveItConfigsBuilder("robot", package_name="robot_moveit").to_moveit_configs()
+    moveit_config = MoveItConfigsBuilder("robot", package_name="robot_moveit") \
+        .robot_description(mappings={"use_sim": "false"}) \
+        .to_moveit_configs()
     pkg_share             = get_package_share_directory("robot_moveit")
     rviz_config_file      = os.path.join(pkg_share, "config", "moveit.rviz")
     ros2_controllers_path = os.path.join(pkg_share, "config", "ros2_controllers.yaml")
