@@ -1,39 +1,26 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro ="http://www.ros.org/wiki/xacro" name="robot">
     
-        <xacro:arg name ="use_sim" default ="true" />
-        <xacro:arg name ="port"    default ="/dev/ttyUSB0"/>
-        <xacro:arg name ="baud"    default ="115200"/>
+    <xacro:arg name ="use_sim" 
+            default ="true" />
+    <xacro:arg name ="initial_positions_file" 
+            default ="$(find robot_moveit)/config/initial_positions.yaml" />
 
+    <xacro:include filename =   "$(find robot_description)/urdf/materials.xacro" />
+    <xacro:include filename =   "$(find robot_description)/urdf/robot.xacro" />
+    <xacro:include filename =   "$(find robot_description)/urdf/sensors.xacro"/>
+    <xacro:include filename =   "$(find robot_description)/urdf/ros2_control.xacro" />
+    <xacro:include filename =   "$(find robot_description)/urdf/gazebo.xacro" />
+    
+    <xacro:base_camera
+            parent_link             ="base_link"
+            base_link               ="astra_link"
+            camera_name             ="astra_depth"
+            frame_name              ="astra_link"/>
 
-        <xacro:arg name ="initial_positions_file" 
-                default ="$(find robot_moveit)/config/initial_positions.yaml" />
-
-        <xacro:include filename =   "$(find robot_description)/urdf/materials.xacro" />
-        <xacro:include filename =   "$(find robot_description)/urdf/robot.xacro" />
-        <xacro:include filename =   "$(find robot_description)/urdf/sensors.xacro"/>
-        <xacro:include filename =   "$(find robot_description)/urdf/ros2_control.xacro" />
-        <xacro:include filename =   "$(find robot_description)/urdf/gazebo.xacro" />
-        
-        <xacro:ros2_control_block 
-                                use_sim="$(arg use_sim)" 
-                                port="$(arg port)" 
-                                baud="$(arg baud)"/>
-        
-        <xacro:base_camera
-                parent_link             ="base_link"
-                base_link               ="astra_link"
-                camera_name             ="astra_depth"
-                frame_name              ="astra_link"/>
-        <xacro:robot_ros2_control 
-                name                    ="robot" 
-                initial_positions_file  ="$(arg initial_positions_file)" 
-                use_sim                 ="$(arg use_sim)" />
-
-        <!-- (optional) Gazebo tags, sensors, friction... chỉ có ý nghĩa khi sim -->
-        <xacro:if value="$(arg use_sim)">
-                <!-- <gazebo>
-                </gazebo> -->
-        </xacro:if>
+    <xacro:robot_ros2_control 
+            name                    ="robot" 
+            initial_positions_file  ="$(arg initial_positions_file)" 
+            use_sim                 ="$(arg use_sim)" />
 
 </robot>
